@@ -1,5 +1,5 @@
 from ventana import *
-from Clipy import *
+from Clipy_productor import *
 import time
 
 #rc4,escitala,cifrado_cesar,cifrado_veginere,cifrado_xor
@@ -24,6 +24,7 @@ class MainWindows(QtWidgets.QMainWindow,Ui_conexion):
         self.Bconectar.clicked.connect(self.conectar)
         self.Bdesconectar.clicked.connect(self.desconectar)
         self.Bconsumir.clicked.connect(self.consumir)
+        self.Bconsumir.setVisible(False)
         self.Bproducir.clicked.connect(self.producir)
         
     def conectar(self):
