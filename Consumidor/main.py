@@ -49,7 +49,7 @@ class MainWindows(QtWidgets.QMainWindow,Ui_conexion):
             self.Tlogs.append("Servidor retorna: " + consumo)
             respuesta = self.procesar_factorial(consumo)
             if(respuesta != 0):
-                self.Tlogs.append("Factorial de "+consumo[6:]+": " + respuesta)
+                self.Tlogs.append("Factorial de "+consumo[6:]+": " + str(respuesta))
             
     def procesar_factorial(self,texto):
         if("facto " in texto):
@@ -62,6 +62,8 @@ class MainWindows(QtWidgets.QMainWindow,Ui_conexion):
             return 0
         
     def factorial(self,numero):
+        if(numero == 0):
+            return 1
         arr = list(range(numero+1))[1:]
         final = 1
         for i in arr:
