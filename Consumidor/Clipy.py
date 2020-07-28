@@ -25,10 +25,12 @@ class conexion_cliente:
     def consumir(self):
         ins = self.sCliente.recv(512)
         insd = ins.decode("UTF8")
-        return ("Servidor retorna: " + str(insd))
+        return (str(insd))
 
-    def producir(self):
-        seguir = True
+    def producir(self,texto):
+        self.sCliente.send(texto)
+        print("Enviando "+texto)
+        
         """
         while seguir:
             ints = "1"

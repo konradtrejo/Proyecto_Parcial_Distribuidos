@@ -15,6 +15,8 @@ class MainWindows(QtWidgets.QMainWindow,Ui_conexion):
         self.Thost.setText(self.host)
         self.Tport.setText(str(self.port))
         
+        self.producto_cont = 0
+        
         self.seguir = True
         
         self.Cliente = conexion_cliente(self.host, self.port)
@@ -22,7 +24,7 @@ class MainWindows(QtWidgets.QMainWindow,Ui_conexion):
         self.Bconectar.clicked.connect(self.conectar)
         self.Bdesconectar.clicked.connect(self.desconectar)
         self.Bconsumir.clicked.connect(self.consumir)
-        self.Bproducir.clicked.connect(self.actualizar)
+        self.Bproducir.clicked.connect(self.producir)
         
     def conectar(self):
         self.host = self.Thost.toPlainText()
@@ -44,15 +46,39 @@ class MainWindows(QtWidgets.QMainWindow,Ui_conexion):
         #while(self.seguir):
         for i in range(10):
             consumo = self.Cliente.consumir()
-            self.Tlogs.append(consumo)
-            #time.sleep(1)
-            """cont +=1
-            if(cont>10):
-                self.actualizar()
-            """
+            self.Tlogs.append("Servidor retorna: " + consumo)
+            respuesta = self.procesar_factorial(consumo)
+            if(respuesta != 0):
+                self.Tlogs.append("Factorial de "+consumo[6:]+": " + respuesta)
             
+    def procesar_factorial(self,texto):
+        if("facto " in texto):
+            numero = texto[6:]
+            if(numero.isnumeric()):
+                return self.factorial(int(numero))
+            else:
+                return 0
+        else:
+            return 0
+        
+    def factorial(self,numero):
+        arr = list(range(numero+1))[1:]
+        final = 1
+        for i in arr:
+            final *= i
+        return final
+        
     def actualizar(self):
         self.seguir = False
+        
+    def producir(self):
+        for i in range(10):
+            texto = "Producto "+self.producto_cont
+            self.Cliente.producir(texto)
+            self.Tlogs.append("Enviando : " + texto)
+            self.producto_cont += 1
+            time.sleep(2)
+        
 
 
 
