@@ -28,19 +28,19 @@ public class Main {
         switch(op){
             case 1:
                 LinkedList<char[]> lista = new LinkedList();
-                Producer prod = new Producer(lista);
+                Storer prod = new Storer(lista, serversocket);
                 prod.start();
-                Serpy server = new Serpy(lista, null, serversocket, prod);
+                Serpy server = new Serpy(lista, null, serversocket);
                 server.initLoop();
                 break;
             case 2:
                 LinkedList<char[]> lista2 = new LinkedList();
-                Producer prod2 = new Producer(lista2);
+                Storer prod2 = new Storer(lista2, serversocket);
                 prod2.start();
                 ServerThread[] manager = new ServerThread[20];
                 int i = 0;
                 while(i<20){
-                    Serpy server2 = new Serpy(lista2, null, serversocket, prod2);
+                    Serpy server2 = new Serpy(lista2, null, serversocket);
                     manager[i] = new ServerThread(server2);
                     manager[i].start();
                     i++;
@@ -48,14 +48,14 @@ public class Main {
                 break;
             case 3:
                 LinkedList<char[]>[] listan = new LinkedList[20];
-                Producer[] prodn = new Producer[20];
+                Storer[] prodn = new Storer[20];
                 ServerThread[] manager2 = new ServerThread[20];
                 int j = 0;
                 while(j<20){
                     listan[j] = new LinkedList();
-                    prodn[j] = new Producer(listan[j]);
+                    prodn[j] = new Storer(listan[j], serversocket);
                     prodn[j].start();
-                    Serpy server2 = new Serpy(listan[j], null, serversocket, prodn[j]);
+                    Serpy server2 = new Serpy(listan[j], null, serversocket);
                     manager2[j] = new ServerThread(server2);
                     manager2[j].start();
                     j++;
@@ -64,10 +64,10 @@ public class Main {
             case 4:
                 LinkedList<char[]> listaA = new LinkedList();
                 LinkedList<char[]> listaB = new LinkedList();
-                Producer prod4 = new Producer(listaA);
+                Storer prod4 = new Storer(listaA, serversocket);
                 //Receiver recv4 = new Receiver(ListaB);
                 prod4.start();
-                Serpy server4 = new Serpy(listaA, listaB, serversocket, prod4);
+                Serpy server4 = new Serpy(listaA, listaB, serversocket);
                 server4.initLoop(); 
                 break;
             default:

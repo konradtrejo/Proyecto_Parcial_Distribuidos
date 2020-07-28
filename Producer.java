@@ -5,7 +5,7 @@
  */
 package decoder.serpy;
 
-import java.util.LinkedList;
+import java.net.InetAddress;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,27 +13,20 @@ import java.util.logging.Logger;
  *
  * @author JARED
  */
-public class Producer extends Thread{
-    LinkedList l;
-    boolean running;
-    
-    public Producer(LinkedList li){
-        l = li;
-        running = true;
-    }
-    
-    @Override
-    public void run(){
+public class Producer {
+    public static void main(String[] args){
         int n = 0;
-        while(running){
+        MiddleLibJa.init("192.168.1.3");
+        while(true){
             //System.out.println("Yendo...");
             try{
                 Thread.sleep(2000);
             }catch (InterruptedException ex) {
                 Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
             }
-            l.addLast(("Producto " + n).toCharArray());
+            MiddleLibJa.send("Producto " + n);
             n++;
         }
+        //MiddleLibJa.close();
     }
 }

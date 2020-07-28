@@ -18,14 +18,12 @@ public class Serpy {
 
     LinkedList<char[]> send;
     LinkedList<char[]> recv;
-    Producer prod;
     ServerSocket server;
     Socket cli;
 
-    public Serpy(LinkedList<char[]> li, LinkedList<char[]> ki, ServerSocket s, Producer prodi) throws IOException {
+    public Serpy(LinkedList<char[]> li, LinkedList<char[]> ki, ServerSocket s) throws IOException {
         send = li;
         recv = ki;
-        prod = prodi;
         server = s;
         System.out.println("Esperando cliente");
         cli = server.accept();
@@ -46,7 +44,7 @@ public class Serpy {
             try{
                 Thread.sleep(250);
             }catch (InterruptedException ex) {
-                Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Storer.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             if(send.peekFirst()!=null){
